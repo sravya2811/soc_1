@@ -1,0 +1,6 @@
+const newparagraph=document.createElement("p")
+newparagraph.textcontent="this is a new paragraph"
+myDiv.appendChild(newparagraph);
+myDiv.addEventListener("click",()=>{
+    alert('Div clicked');
+});
