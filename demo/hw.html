@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editable To-Do List</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    /* Reset & Base Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 500px;
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    li {
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    li:hover {
+      background-color: #f9f9f9;
+    }
+
+    input.edit-task {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    input.edit-task:focus {
+      border-color: #007BFF;
+      box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Editable To-Do List</h1>
+
+  <ul id="todo-list">
+    <li>Buy groceries</li>
+    <li>Walk the dog</li>
+    <li>Read a book</li>
+  </ul>
+
+  <script>
+    $(document).ready(function() {
+      $('#todo-list').on('dblclick', 'li', function() {
+        var $li = $(this);
+        var currentText = $li.text();
+        var $input = $('<input type="text" class="edit-task">').val(currentText);
+
+        // Replace <li> content with input box
+        $li.html($input);
+        $input.focus();
+
+        // Save on Enter key
+        $input.on('keydown', function(e) {
+          if (e.key === 'Enter') {
+            var newText = $input.val().trim();
+            $li.text(newText || currentText); // Avoid empty value
+          }
+        });
+
+        // Save on blur
+        $input.on('blur', function() {
+          var newText = $input.val().trim();
+          $li.text(newText || currentText);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
